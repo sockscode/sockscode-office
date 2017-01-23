@@ -1,0 +1,11 @@
+.right-panel{
+    margin-top: -5px;
+}
+
+.button{
+    margin: 5px;
+}
+
+.logo:hover{
+    transform: scale(2) rotate(180deg);
+}
