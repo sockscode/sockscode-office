@@ -16,6 +16,8 @@
   "author": "Shyyko Serhiy <shyyko.serhiy@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/autobind-decorator": "^1.3.2",
+    "autobind-decorator": "^1.3.4",
     "koa": "^1.2.4",
     "koa-static": "^2.0.0",
     "node-uuid": "^1.4.7",
