@@ -9,3 +9,8 @@
     flex-grow: 1;
     display: flex;
 }
+
+.spinner :nth-child(1){
+    width:100px !important; 
+    height: 100px !important;
+}
