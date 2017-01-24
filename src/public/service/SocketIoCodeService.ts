@@ -18,7 +18,7 @@ export class SocketIoCodeService {
     private _io: typeof socketio.Socket;
 
     constructor() {
-        this._io = socketio.connect({ path: '/code' });
+        this._io = socketio.connect('https://sockscode.azurewebsites.net', { path: '/code' });
     }
 
     changeCode(code: string) {
