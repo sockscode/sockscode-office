@@ -4,16 +4,23 @@ export class OfficeService {
     wordTextChangeEmitter: WordTextChangeEmitter;
     initialized: boolean;
 
-    promiseInitialize(): Promise<OfficeState> {
-        let resolver: (value?: OfficeState | PromiseLike<OfficeState>) => void;
-        let promise = new Promise<OfficeState>((resolve, reject) => {
+    promiseInitialize(): Promise<void> {
+        if (this.initialized) {
+            return Promise.resolve();
+        }
+        let resolver: () => void;
+        let promise = new Promise<void>((resolve, reject) => {
             resolver = resolve
         });
         Office.initialize = (reason) => {
-            this.wordTextChangeEmitter = new WordTextChangeEmitter();
-            this.initialized = true;
-            resolver();
-        }
+            if (Office.context.requirements.isSetSupported('WordApi', 1.1)) {
+                this.wordTextChangeEmitter = new WordTextChangeEmitter();
+                this.initialized = true;
+                resolver();
+            } else {
+                //fixme reject 
+            }
+        }//fixme catch?
         return promise;
     }
 
@@ -55,17 +62,26 @@ class WordTextChangeEmitter {
         this.intervalTime = intervalTime;
         const changeChecker = () => {
             Word.run((context) => {
-                const text = context.document.body.text;
-                if (text != this.prevText) {
-                    this.prevText = text;
-                    this.emit('change', text);
-                }
-                return Promise.resolve();
+                // Create a proxy object for the document body.
+                const body = context.document.body;
+                const bodyHTML = body.getHtml();
+                const ooxml = body.getOoxml();
+                // Queue a commmand to load the text in document body.
+                context.load(body, 'text');
+                return context.sync().then(() => {
+                    const text = body.text;
+                    if (text != this.prevText) {
+                        this.prevText = text;
+                        this.emit('change', text);
+                    }
+                    console.log(ooxml.value);
+                    return Promise.resolve();
+                });
             }).then(() => {
-                changeChecker();
+                setTimeout(changeChecker, intervalTime);
             }).catch(function () {
                 console.error("Failed to check for change of text", arguments);
-                changeChecker();
+                setTimeout(changeChecker, intervalTime);
             });
         };
         setTimeout(changeChecker, intervalTime)
