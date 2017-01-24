@@ -14,7 +14,8 @@ new WebpackDevServer(webpack(config), {
       target: 'http://localhost:5000',
       ws: true
     }
-  }
+  },
+  https: true
 }).listen(3000, 'localhost', function (err, result) {
   if (err) {
     return console.log(err);
