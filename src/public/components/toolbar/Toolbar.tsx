@@ -14,6 +14,7 @@ const styles = require("./Toolbar.css");
 
 interface ToolbarProps {
     onCreateNewRoom: () => void;
+    onCreateTextControll: () => void;
     onRoomChange: (roomUuid: string) => void;
     onConnect: (roomUuid: string) => void;
     roomUuid: string;
@@ -38,67 +39,82 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState>{
     }
 
     render() {
-        return <div className={css('ms-CommandBar', )} ref='commandBarRegion'>
-            <FocusZone className={styles.toolbar} ref='focusZone' direction={FocusZoneDirection.horizontal} rootProps={{ role: 'menubar' }}>
-                {this._renderLogo()}
-                <TextField className={styles.roomInput}
-                    value={this.props.roomUuid}
-                    onChanged={this.props.onRoomChange}
-                    placeholder='Room uuid'
-                    />
-                <div>
-                    <Button onClick={this._onConnectButtonClick} id='connect'> Connection</Button>
-                    {this.state.isContextMenuVisible ? (
-                        <ContextualMenu
-                            shouldFocusOnMount={true}
-                            target={this.state.contextMenuTarget}
-                            onDismiss={this._onDismiss}
-                            directionalHint={DirectionalHint.bottomLeftEdge}
-                            items={
-                                [
-                                    {
-                                        name: 'New Connection',
-                                        key: 'newItem',
-                                        iconProps: {
-                                            iconName: 'Add' as IconName
-                                        },
-                                        subMenuProps: {
-                                            items: [
-                                                {
-                                                    key: 'newSession',
-                                                    name: 'Create new session.',
-                                                    title: 'Create new session.',
-                                                    onClick: this._onCreateNewRoom
-                                                },
-                                                {
-                                                    key: 'existing',
-                                                    name: 'Connect to existing session',
-                                                    title: 'Connect to existing session. You\'ll need roomUuid for this.',
-                                                    onClick: this._onConnectToExisting
-                                                }
-                                            ],
+        return <div>
+            <div className={css('ms-CommandBar', )} ref='commandBarRegion'>
+                <FocusZone className={styles.toolbar} ref='focusZone' direction={FocusZoneDirection.horizontal} rootProps={{ role: 'menubar' }}>
+                    {this._renderLogo()}
+                    <TextField className={styles.roomInput}
+                        value={this.props.roomUuid}
+                        onChanged={this.props.onRoomChange}
+                        placeholder='Room uuid'
+                        />
+                </FocusZone>
+            </div>
+            <div className={css('ms-CommandBar', )} ref='commandBarRegion'>
+                <FocusZone className={styles.toolbar} ref='focusZone' direction={FocusZoneDirection.horizontal} rootProps={{ role: 'menubar' }}>
+                    <div>
+                        {
+                            /** text controll is not supported correctly in office online  */
+                            /*<Button onClick={this._onCreateTextControll} id='createTextControll'> Create text controll</Button>*/
+                        }
+                        <Button onClick={this._onConnectButtonClick} id='connect'> Connection</Button>
+                        {this.state.isContextMenuVisible ? (
+                            <ContextualMenu
+                                shouldFocusOnMount={true}
+                                target={this.state.contextMenuTarget}
+                                onDismiss={this._onDismiss}
+                                directionalHint={DirectionalHint.bottomLeftEdge}
+                                items={
+                                    [
+                                        {
+                                            name: 'New Connection',
+                                            key: 'newItem',
+                                            iconProps: {
+                                                iconName: 'Add' as IconName
+                                            },
+                                            subMenuProps: {
+                                                items: [
+                                                    {
+                                                        key: 'newSession',
+                                                        name: 'Create new session.',
+                                                        title: 'Create new session.',
+                                                        onClick: this._onCreateNewRoom
+                                                    },
+                                                    {
+                                                        key: 'existing',
+                                                        name: 'Connect to existing session',
+                                                        title: 'Connect to existing session. You\'ll need roomUuid for this.',
+                                                        onClick: this._onConnectToExisting
+                                                    }
+                                                ],
+                                            }
+                                        }, {
+                                            name: 'Stop Connection',
+                                            key: 'stopConnection',
+                                            iconProps: {
+                                                iconName: 'Cancel' as IconName
+                                            },
                                         }
-                                    }, {
-                                        name: 'Stop Connection',
-                                        key: 'stopConnection',
-                                        iconProps: {
-                                            iconName: 'Cancel' as IconName
-                                        },
-                                    }
-                                ]
-                            }
-                            />) : (null)
-                    }
-                </div>
-            </FocusZone>
+                                    ]
+                                }
+                                />) : (null)
+                        }
+                    </div>
+                </FocusZone>
+            </div>
         </div>
     }
-    
+
+    @autobind
+    private _onCreateTextControll() {
+        this.props.onCreateTextControll();
+    }
+
     @autobind
     private _onCreateNewRoom() {
         this.props.onCreateNewRoom();
     }
-    
+
     @autobind
     private _onConnectToExisting() {
         this.props.onConnect(this.props.roomUuid);

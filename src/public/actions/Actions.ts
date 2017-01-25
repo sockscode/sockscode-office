@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { SocketIoCodeService } from '../service/SocketIoCodeService';
 import { OfficeState } from '../reducers/Office';
+import { OfficeService } from '../service/OfficeService';
 /*
  * action types
  */
@@ -14,6 +15,7 @@ export const CODE_CHANGED_LOCAL = 'CODE_CHANGED_LOCAL';
  * Office action types
  */
 export const OFFICE_INITIALIZED = 'OFFICE_INITIALIZED';
+export const CREATE_TEXT_CONTROLL = 'CREATE_TEXT_CONTROLL';
 
 
 interface HasRoomUuid {
@@ -51,6 +53,10 @@ export interface OfficeInitStateAction extends OfficeState {
     type: 'OFFICE_INITIALIZED',
 }
 
+export interface CreateTextControll {
+    type: 'CREATE_TEXT_CONTROLL'
+}
+
 /*
  * action creators
  */
@@ -86,5 +92,12 @@ export function remoteCodeChanged(code: string): CodeChangedRemoteAction {
  */
 export function officeInitialized(officeState: OfficeState): OfficeInitStateAction {
     return { ...officeState, type: 'OFFICE_INITIALIZED' };
+}
+
+export function createTextControll() {
+    OfficeService.addContentControls().catch((error) => {
+        console.error(error);
+    });
+    return { type: CREATE_TEXT_CONTROLL };
 }
 

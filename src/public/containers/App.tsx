@@ -26,12 +26,12 @@ socketIoCodeService.onCreateRoom((roomUuid) => {
 });
 socketIoCodeService.onCodeChange((codeChangeSocketData) => {
     store.dispatch(remoteCodeChanged(codeChangeSocketData.code));
+    officeService.changeCodeBuffered(codeChangeSocketData.code);
 });
 const officeService: OfficeService = new OfficeService();
 
 @CSSModules(styles)
 export class App extends React.Component<AppProps, AppState>{
-
     state = {
         officeInitialized: false
     }
@@ -39,6 +39,9 @@ export class App extends React.Component<AppProps, AppState>{
         super();
         officeService.promiseInitialize().then(() => {
             this.setState({ officeInitialized: true });
+            officeService.onCodeChange((data: string) => {
+                socketIoCodeService.changeCode(data);
+            });
         });
         //fixme catch? fixme redux
     }

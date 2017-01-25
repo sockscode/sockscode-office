@@ -19,10 +19,12 @@
 }
 
 .toolbar {
+    align-items: center;
+    justify-content: center;
     display: flex;    
 }
 
 .toolbar>*{
     margin-top: 5px;
-    margin-down: 5px;
+    margin-bottom: 5px;
 }
