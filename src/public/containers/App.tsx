@@ -26,7 +26,7 @@ socketIoCodeService.onCreateRoom((roomUuid) => {
 });
 socketIoCodeService.onCodeChange((codeChangeSocketData) => {
     store.dispatch(remoteCodeChanged(codeChangeSocketData.code));
-    officeService.changeCodeBuffered(codeChangeSocketData.code);
+    officeService.changeCode(codeChangeSocketData.code);
 });
 const officeService: OfficeService = new OfficeService();
 

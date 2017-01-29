@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { SocketIoCodeService } from '../service/SocketIoCodeService';
 import { OfficeState } from '../reducers/Office';
-import { OfficeService } from '../service/OfficeService';
+//import { OfficeService } from '../service/OfficeService';
 /*
  * action types
  */
@@ -95,9 +95,9 @@ export function officeInitialized(officeState: OfficeState): OfficeInitStateActi
 }
 
 export function createTextControll() {
-    OfficeService.addContentControls().catch((error) => {
-        console.error(error);
-    });
+    // OfficeService.addContentControls().catch((error) => {
+    //     console.error(error);
+    // });
     return { type: CREATE_TEXT_CONTROLL };
 }
 
