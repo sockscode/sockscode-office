@@ -29,6 +29,7 @@ export class OfficeService {
             } else if (Office.context.requirements.isSetSupported('OneNoteApi', 1.1)) {
                 this.initialized = true;
                 this.officeService = new OneNoteService();
+                resolver();
             } else {
                 this.initialized = false;
                 rejecter('Your application is not supported. Only Word and OneNote are supported.');
