@@ -5,10 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node -e 'var fs = require(\"fs-extra\"); fs.removeSync(\"./dist\");' && webpack --config config/webpack.prod.config.js",
+    "build": "node -e \"var fs = require('fs-extra'); fs.removeSync('./dist');\" && webpack --config config/webpack.prod.config.js",
     "start": "node app.js",
     "start-dev": "node webpack-dev-server",
-    "postinstall": "node -e 'var fs = require(\"fs-extra\"); fs.removeSync(\"./node_modules/office-ui-fabric-react/node_modules\"); fs.removeSync(\"./node_modules/@uifabric/utilities/node_modules\");' #we need this beacuse these repos has old @types definitions for react"
+    "postinstall": "node -e \"var fs = require('fs-extra'); fs.removeSync('./node_modules/office-ui-fabric-react/node_modules'); fs.removeSync('./node_modules/@uifabric/utilities/node_modules');\" #we need this beacuse these repos has old @types definitions for react"
   },
   "engines": {
     "node": "6.9.1"
