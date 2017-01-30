@@ -1,6 +1,7 @@
 let webpack = require('webpack');
 let path = require('path');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
+let WebpackStrip = require('webpack-strip');
 
 module.exports = {
     entry: {
@@ -18,7 +19,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.tsx?$/, loaders: ['babel', 'ts-loader'] },
+            { test: /\.tsx?$/, loaders: [WebpackStrip.loader('console.log'), 'babel', 'ts-loader'] },
             {
                 test: /\.css$/,
                 loaders: [
@@ -30,9 +31,9 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([
-            { from: 'node_modules/office-ui-fabric-react/dist/css/fabric.min.css'},
-            { from: 'node_modules/office-ui-fabric-react/dist/css/fabric.rtl.min.css'},
-            { from: 'src/static' }            
+            { from: 'node_modules/office-ui-fabric-react/dist/css/fabric.min.css' },
+            { from: 'node_modules/office-ui-fabric-react/dist/css/fabric.rtl.min.css' },
+            { from: 'src/static' }
         ]),
         new webpack.DefinePlugin({
             'process.env': {

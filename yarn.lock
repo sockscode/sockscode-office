@@ -4026,6 +4026,12 @@ webpack-notifier@^1.5.0:
     object-assign "^4.1.0"
     strip-ansi "^3.0.1"
 
+webpack-strip@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/webpack-strip/-/webpack-strip-0.1.0.tgz#2737acdd5049502299156a2d6a3ab697239a3359"
+  dependencies:
+    loader-utils "^0.2.6"
+
 webpack@^1.14.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-1.14.0.tgz#54f1ffb92051a328a5b2057d6ae33c289462c823"
