@@ -1,7 +1,7 @@
 {
-  "name": "sockscode-server",
+  "name": "sockscode-office",
   "version": "0.0.1",
-  "description": "sockscode server",
+  "description": "sockscode office add in",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,7 @@
   },
   "author": "Shyyko Serhiy <shyyko.serhiy@gmail.com>",
   "license": "MIT",
-  "dependencies": {    
+  "dependencies": {
     "autobind-decorator": "^1.3.4",
     "koa": "^1.2.4",
     "koa-static": "^2.0.0",
