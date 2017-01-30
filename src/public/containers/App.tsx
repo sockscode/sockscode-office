@@ -7,6 +7,7 @@ import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner';
 import { sockscodeApp } from '../reducers/Reducers';
 import { SocketIoCodeService } from '../service/SocketIoCodeService';
 import { OfficeService } from '../service/OfficeService';
+import { Info } from '../components/info/Info';
 import { createdRoom, codeChanged, remoteCodeChanged } from '../actions/Actions'
 import { css } from 'office-ui-fabric-react/lib/Utilities';
 
@@ -42,8 +43,10 @@ export class App extends React.Component<AppProps, AppState>{
             officeService.onCodeChange((data: string) => {
                 socketIoCodeService.changeCode(data);
             });
+        }).catch((error) => {
+            console.log('Error', error);
+            //fixme catch? fixme redux
         });
-        //fixme catch? fixme redux
     }
 
     render() {
@@ -51,6 +54,7 @@ export class App extends React.Component<AppProps, AppState>{
             <div className={css(styles.container, 'ms-Fabric', 'ms-font-m')}>
                 {this.state.officeInitialized ? <div>
                     <SockscodeToolbar />
+                    <Info />
                 </div> : <Spinner className={styles.spinner} type={SpinnerType.large} label='Initializing...' />}
             </div>
         </Provider>

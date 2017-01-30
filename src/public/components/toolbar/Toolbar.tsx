@@ -52,12 +52,12 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState>{
             </div>
             <div className={css('ms-CommandBar', )} ref='commandBarRegion'>
                 <FocusZone className={styles.toolbar} ref='focusZone' direction={FocusZoneDirection.horizontal} rootProps={{ role: 'menubar' }}>
-                    <div>
+                    <div className={styles['width100']}>
                         {
                             /** text controll is not supported correctly in office online  */
                             /*<Button onClick={this._onCreateTextControll} id='createTextControll'> Create text controll</Button>*/
                         }
-                        <Button onClick={this._onConnectButtonClick} id='connect'> Connection</Button>
+                        <Button className={styles['connection-button']} onClick={this._onConnectButtonClick} id='connect'> Connection</Button>
                         {this.state.isContextMenuVisible ? (
                             <ContextualMenu
                                 shouldFocusOnMount={true}
@@ -67,28 +67,24 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState>{
                                 items={
                                     [
                                         {
-                                            name: 'New Connection',
-                                            key: 'newItem',
+                                            key: 'newSession',
+                                            name: 'Create new session.',
+                                            title: 'Create new session.',
+                                            onClick: this._onCreateNewRoom,
                                             iconProps: {
                                                 iconName: 'Add' as IconName
-                                            },
-                                            subMenuProps: {
-                                                items: [
-                                                    {
-                                                        key: 'newSession',
-                                                        name: 'Create new session.',
-                                                        title: 'Create new session.',
-                                                        onClick: this._onCreateNewRoom
-                                                    },
-                                                    {
-                                                        key: 'existing',
-                                                        name: 'Connect to existing session',
-                                                        title: 'Connect to existing session. You\'ll need roomUuid for this.',
-                                                        onClick: this._onConnectToExisting
-                                                    }
-                                                ],
                                             }
-                                        }, {
+                                        },
+                                        {
+                                            key: 'existing',
+                                            name: 'Connect to existing session',
+                                            title: 'Connect to existing session. You\'ll need roomUuid for this.',
+                                            onClick: this._onConnectToExisting,
+                                            iconProps: {
+                                                iconName: 'PeopleAdd' as IconName
+                                            }
+                                        },
+                                        {
                                             name: 'Stop Connection',
                                             key: 'stopConnection',
                                             iconProps: {

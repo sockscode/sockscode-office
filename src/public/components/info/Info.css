@@ -1,0 +1,28 @@
+.info>div{
+    padding: 10px;
+}
+
+.bullet {
+    background-color: rgba(51,51,51,0.2);
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.instruction {
+    display: flex;
+    align-items: center;
+}
+
+.instruction-info {
+    margin-left: 10px;
+    flex-shrink: 100;
+}
+
+.or {
+    padding: 0;
+    padding-left: 10px;
+}
