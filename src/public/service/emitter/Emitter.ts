@@ -18,6 +18,10 @@ export class Emitter {
         this._suspendEventRecording = Math.max(0, this._suspendEventRecording - 1);
     }
 
+    isSuspendedEventRecording() {
+        return !!this.suspendEventRecording;
+    }
+
     emit(event: string, data: any) {
         let listenersList = this._listeners.get(event);
         listenersList && listenersList.forEach((listener) => {

@@ -5,8 +5,8 @@ import { Parser } from 'xml2js';
 import { stripPrefix } from 'xml2js/lib/processors';
 
 export class WordService implements IOfficeService {
-    wordTextChangeEmitter: WordTextChangeEmitter;
-    initialized: boolean;    
+    private _wordTextChangeEmitter: WordTextChangeEmitter;
+    private _changingCode: boolean;
 
     constructor() {
         let timeoutId = 0;
@@ -18,30 +18,37 @@ export class WordService implements IOfficeService {
         this.changeCode = (code: string) => {
             clearTimeout(timeoutId);
             timeoutId = (setTimeout(() => {
+                if (this._changingCode) {
+                    changeCode(code);
+                    return;
+                }
                 changeCode(code);
             }, 200) as any) as number;
         };
-        this.wordTextChangeEmitter = new WordTextChangeEmitter();
+        this._wordTextChangeEmitter = new WordTextChangeEmitter();
     }
 
     onCodeChange(codeChangedListener: (data: string) => void) {
-        this.wordTextChangeEmitter.subscribe('change', codeChangedListener);
+        this._wordTextChangeEmitter.subscribe('change', codeChangedListener);
     }
 
     changeCode(code: string) {
-        this.wordTextChangeEmitter.suspendEventRecording();
+        this._changingCode = true;
+        this._wordTextChangeEmitter.suspendEventRecording();
         Word.run((ctx) => {
             ctx.document.body.insertText(code, 'Replace');
             return ctx.sync().then(() => {
-                this.wordTextChangeEmitter.prevText = code;
+                this._wordTextChangeEmitter.prevText = code;
                 const html = ctx.document.body.getHtml();
                 return ctx.sync().then(() => {
-                    this.wordTextChangeEmitter.prevText = HtmlParser.parseHtml(html);
-                    this.wordTextChangeEmitter.resumeEventRecording();
+                    this._wordTextChangeEmitter.prevText = HtmlParser.parseHtml(html);
+                    this._wordTextChangeEmitter.resumeEventRecording();
+                    this._changingCode = false;
                 });
             });
         }).catch(function () {
-            this.wordTextChangeEmitter.resumeEventRecording();
+            this._changingCode = false;
+            this._wordTextChangeEmitter.resumeEventRecording();
             console.error("Failed to check for change of text", arguments);
         }.bind(this));
     }
