@@ -5,14 +5,14 @@
   <ProviderName>shyykoserhiy</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="sockscode-office"/>
-  <Description DefaultValue="[Task pane Add-in description]"/>
-  <IconUrl DefaultValue="https://localhost:3000/logo.png"/>
+  <Description DefaultValue="sockscode-office. sockscode comatible add-in for pair coding."/>
+  <IconUrl DefaultValue="https://sockscode-office.azurewebsites.net/"/>
   <Hosts>
     <Host Name="Document"/>
     <Host Name="Notebook"/>
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/"/>
+    <SourceLocation DefaultValue="https://sockscode-office.azurewebsites.net/"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>
