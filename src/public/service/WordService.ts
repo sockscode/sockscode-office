@@ -105,6 +105,15 @@ class WordTextChangeEmitter extends Emitter {
  */
 class HtmlParser {
     public static parseHtml(html: { value: string }): string {
+        //http://stackoverflow.com/questions/36066653/how-do-i-detect-if-the-user-is-using-excel-online-or-excel-desktop/36290878#36290878
+        if (window.top == window) {
+            // the add-in is not running in Word Online
+            return this.parseHtmlDesktopWord(html);
+        }
+        return this.parseHtmlOnlineWord(html);
+    }
+
+    public static parseHtmlOnlineWord(html: { value: string }): string {
         const documnetFragment = document.createDocumentFragment();
         const htmlEl = document.createElement('html');
         htmlEl.innerHTML = html.value;
@@ -116,6 +125,16 @@ class HtmlParser {
                 }
                 return el.textContent;
             }).join('');
+        }).join('\n');
+    }
+
+    public static parseHtmlDesktopWord(html: { value: string }): string {
+        const documnetFragment = document.createDocumentFragment();
+        const htmlEl = document.createElement('html');
+        htmlEl.innerHTML = html.value;
+        documnetFragment.appendChild(htmlEl);
+        return Array.from(documnetFragment.querySelectorAll('.MsoNormal')).map((p) => {
+            return p.textContent;
         }).join('\n');
     }
 }
