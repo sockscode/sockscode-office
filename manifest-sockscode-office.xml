@@ -6,7 +6,7 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="sockscode-office"/>
   <Description DefaultValue="sockscode-office. sockscode comatible add-in for pair coding."/>
-  <IconUrl DefaultValue="https://sockscode-office.azurewebsites.net/"/>
+  <IconUrl DefaultValue="https://sockscode-office.azurewebsites.net/logo.png"/>
   <Hosts>
     <Host Name="Document"/>
     <Host Name="Notebook"/>
