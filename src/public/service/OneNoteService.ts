@@ -50,7 +50,14 @@ export class OneNoteService implements IOfficeService {
                 ctx.load(outline, 'paragraphs');
                 return ctx.sync();
             }).then(() => {
-                outline.paragraphs.items[0].insertRichTextAsSibling('Before', code);
+                //we need this because OneNote doesn't support richText with '\n' proper way
+                //@see http://stackoverflow.com/questions/41927348/adding-n-characters-inside-outline-paragraphs-items0-insertrichtextassibling
+                const rows = code.split('\n');
+                let richText = outline.paragraphs.items[0].insertRichTextAsSibling('Before', rows[0]);
+                for (let i = 1; i < rows.length; i++) {
+                    richText = richText.paragraph.insertRichTextAsSibling('After', rows[i]);
+                }
+
                 console.log('Set text to :' + code.trim());
                 this._changeEmitter.prevText = code.trim(); //fixme
                 return ctx.sync();
