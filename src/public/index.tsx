@@ -9,7 +9,7 @@ import { App } from './containers/App';
 const styles = require("./index.css");
 
 import {createRoom} from './actions/Actions';
-console.log(createRoom);
+console.log(require('babel-polyfill'));
 // Tell Typescript that there is a global variable called module - see below
 declare var module: { hot: any };
 

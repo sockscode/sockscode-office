@@ -6,7 +6,7 @@ let WebpackStrip = require('webpack-strip');
 module.exports = {
     entry: {
         app: 'index.tsx',
-        vendor: ['react', 'react-dom']
+        vendor: ['react', 'react-dom', 'babel-polyfill']
     },
     output: {
         filename: 'bundle.js',
