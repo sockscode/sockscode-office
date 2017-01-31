@@ -19,7 +19,7 @@ export class WordService implements IOfficeService {
             clearTimeout(timeoutId);
             timeoutId = (setTimeout(() => {
                 if (this._changingCode) {
-                    changeCode(code);
+                    this.changeCode(code);
                     return;
                 }
                 changeCode(code);

@@ -12,7 +12,7 @@
     <Host Name="Notebook"/>
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://sockscode-office.azurewebsites.net/"/>
+    <SourceLocation DefaultValue="https://localhost:3000/"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>

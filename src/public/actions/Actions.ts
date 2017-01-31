@@ -9,6 +9,7 @@ export const CREATE_ROOM = 'CREATE_ROOM';
 export const CREATED_ROOM = 'CREATED_ROOM';
 export const CHANGED_ROOM = 'CHANGED_ROOM';
 export const JOIN_ROOM = 'JOIN_ROOM';
+export const DISCONNECT = 'DISCONNECT';
 export const CODE_CHANGED_REMOTE = 'CODE_CHANGED_REMOTE';
 export const CODE_CHANGED_LOCAL = 'CODE_CHANGED_LOCAL';
 /**
@@ -46,6 +47,10 @@ export interface CodeChangedRemoteAction extends HasCode {
     type: 'CODE_CHANGED_REMOTE';
 }
 
+export interface DisconnectAction {
+    type: 'DISCONNECT';
+}
+
 /**
  * Office action interfaces
  */
@@ -76,6 +81,11 @@ export function createdRoom(roomUuid: string): CreatedRoomAction {
 
 export function changedRoom(roomUuid: string): ChangedRoomAction {
     return { type: CHANGED_ROOM, roomUuid };
+}
+
+export function disconnect(): DisconnectAction {
+    SocketIoCodeService.instance.close();
+    return { type: DISCONNECT };
 }
 
 export function codeChanged(code: string): CodeChangedLocalAction {

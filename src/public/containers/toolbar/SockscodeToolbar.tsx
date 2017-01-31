@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { SockscodeState } from '../../reducers/Reducers';
 import { codeChanged } from '../../actions/Actions';
 import { Toolbar } from '../../components/toolbar/Toolbar';
-import { createRoom, changedRoom, joinRoom, createTextControll } from '../../actions/Actions';
+import { createRoom, changedRoom, joinRoom, createTextControll, disconnect } from '../../actions/Actions';
 
 const mapStateToProps = (state: SockscodeState) => {
     const { roomUuid } = state;
@@ -23,6 +23,9 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>) => {
         },
         onCreateTextControll: () => {
             dispatch(createTextControll());
+        },
+        onDisconnect: () => {
+            dispatch(disconnect());
         }
     }
 }

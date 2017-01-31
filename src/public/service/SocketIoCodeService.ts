@@ -26,6 +26,10 @@ export class SocketIoCodeService {
         })
     }
 
+    close() {
+        this._io.close();        
+    }
+
     changeCode(code: string) {
         this._io.emit('code change', code);
     }

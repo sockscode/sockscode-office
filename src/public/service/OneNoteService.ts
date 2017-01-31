@@ -22,7 +22,7 @@ export class OneNoteService implements IOfficeService {
             clearTimeout(timeoutId);
             timeoutId = (setTimeout(() => {
                 if (this._changingCode) {
-                    changeCode(code);
+                    this.changeCode(code);
                     return;
                 }
                 changeCode(code);
@@ -125,6 +125,7 @@ class OneNoteTextChangeEmitter extends Emitter {
         this._intervalTime = intervalTime;
 
         const changeChecker = () => {
+            console.log('change checker');
             //breaking early if suspended
             if (this._suspendEventRecording) {
                 scheduleCheck();

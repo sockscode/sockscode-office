@@ -17,6 +17,7 @@ interface ToolbarProps {
     onCreateTextControll: () => void;
     onRoomChange: (roomUuid: string) => void;
     onConnect: (roomUuid: string) => void;
+    onDisconnect: () => void;
     roomUuid: string;
 }
 
@@ -87,6 +88,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState>{
                                         {
                                             name: 'Stop Connection',
                                             key: 'stopConnection',
+                                            onClick: this._onDisconnect,
                                             iconProps: {
                                                 iconName: 'Cancel' as IconName
                                             },
@@ -114,6 +116,11 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState>{
     @autobind
     private _onConnectToExisting() {
         this.props.onConnect(this.props.roomUuid);
+    }
+
+    @autobind
+    private _onDisconnect(){
+        this.props.onDisconnect();
     }
 
     @autobind
